@@ -1,13 +1,15 @@
 ## Problem Overview
-Let $C$ be a set of $n$ unit vectors. Each point exerts a Coulomb force on all its neighbors such that the net force on each point $\vec r_i$ is given by
+Let $C$ be a set of $n$ unit vectors. Each point exerts a Coulomb force on all its neighbors such that the net force on each point $\hat r_{io}$ is given by
 
-$$\vec F_i = \sum_{k\neq i}\frac{\vec r_i-\vec r_k}{||\vec r_i-\vec r_k||^3}$$
+$$\vec F_i = \sum_{k\neq i}\frac{\vec r_{ik}}{r_{ik}^3}$$
 
-The component of this force that is tangent to the unit sphere is $\vec T_i=\left(\mathbb{U}-\vec r_i\vec r_i^T\right)\vec F_i$. If a distribution of points is equilibrium, then
+where $r_{ik}=||\hat r_{io}-\hat r_{ko}||$ The component of this force that is tangent to the unit sphere is $\vec F_i^{\perp}=\left(\mathbb{U}-\hat r_{io}\hat r_{io}^T\right)\vec F_i$.
 
-$$CS(C) = \sum_{i=1}^{n} T_i = 0$$
+If a distribution of points is equilibrium, then
 
-where $T_i=||\vec T_i||$ and $CS$ denotes the 'Cross Sum,' so called because I originally formulated it using a cross-product.
+$$CS(C) = \sum_{i=1}^{n} F_i^{\perp} = 0$$
+
+where $CS$ denotes the 'Cross Sum,' so called because I originally formulated it using a cross-product.
 
 Most 'normal' shapes can be easily arranged so as to be in equilibrium: prisms, pyramids, regular polygons, and of course the Platonic solids. What one quickly notices about this solution set is that they are all well-described as a set of parallel planar polygons. For instance, the icosahedron has one point both poles and two pentagonal bands, as shown:
 
