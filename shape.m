@@ -62,12 +62,12 @@ if ~isempty(name)
         % assemble the shape
         phi = mod([zeros(1,NPole), cell2mat(arrayfun(@(b)(0:bands(b)-1)*2*pi/bands(b)+ ...
             primes(b)*pi/bands(b),1:B,'un',0)), zeros(1,SPole)],2*pi);
-        vari= repelem(1:B,bands);
+        vari= repelem(1:B,bands)';
     
         %minimize the setup:
         caps={[],-pi/2,[],pi/2};
-        coorf=@(vars) coorConvert([ones(1,n); [caps{NPole+1},vars(vari),caps{SPole+3}]; phi],'sph');
-        varvec = asin((1/B)*(2*(1:B)-(B+1)));
+        coorf=@(vars) coorConvert([ones(1,n); [caps{NPole+1},vars(vari)',caps{SPole+3}]; phi],'sph');
+        varvec = asin((1/B)*(2*(1:B).'-(B+1)));
         if minimize
             varvec = gradMin(@(v)CS(coorf(v)),varvec);
             s.minOrd = -log10(CS(coorf(varvec)));

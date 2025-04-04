@@ -34,6 +34,9 @@ end
 if isa(alpha,'symfun')
     alpha = formula(alpha);
 end
+if isa(i,'symfun')
+    i = formula(i);
+end
 [is1,is2] = size(i);
 [as1,as2] = size(alpha);
 if as2~=is2
@@ -48,7 +51,11 @@ else
     a = alpha(1);
 end
 
-if is1==1
+if is1==3
+    % rotation about an arbitrary axis:
+    n = i(:,1);
+    P_AB = n*n.' + cos(a).*(eye(3)-n*n.') + sin(a).*skew(n);
+elseif is1==1
     switch i(1)
         case 1 %rotation about x-axis
             P_AB = [ones(1,1,as1),zeros(1,2,as1); zeros(2,1,as1),[cos(a),-sin(a);sin(a),cos(a)]];
@@ -57,10 +64,6 @@ if is1==1
         case 3 %rotation about z_axis
             P_AB = [[cos(a),-sin(a);sin(a),cos(a)],zeros(2,1,as1);zeros(1,2,as1),ones(1,1,as1)];
     end
-elseif is1==3
-    % rotation about an arbitrary axis:
-    n = i(:,1);
-    P_AB = n*n.' + cos(a).*(eye(3)-n*n.') + sin(a).*skew(n);
 else
     error('i must either be a row vector or a 3-by-n matrix')
 end
